@@ -1,0 +1,132 @@
+<html>
+  <head>
+    <title>Zombies</title>
+  </head>
+  <body>
+    <canvas id="canvas" width="500" height="500" style="border:2px solid black;"/>
+    <script>
+      var canvas = document.getElementById("canvas");
+      var ctx = canvas.getContext("2d");
+
+      var plr = 490;
+      var x = 250;
+      var v = 0;
+      var h = 0;
+      var keys = {
+        a: false,
+        d: false
+      }
+
+      
+      function zomb(){
+        this.y = 490
+        this.health = 10
+        if(Math.random()>0.5){
+          this.x = 500
+        }else{
+          this.x = -10
+        }
+        this.update = function(){
+
+          ctx.fillStyle = "rgb(247, 49, 224)"
+          ctx.fillRect(this.x+2,this.y-2,6,2)
+          ctx.fillStyle = "green"
+          ctx.fillRect(this.x,this.y,10,10)
+          ctx.fillStyle = "black"
+          
+          if(this.x<x){
+            this.x++
+            ctx.fillRect(this.x+5,this.y+2,3,3)
+          }else
+          if(this.x>x){
+            this.x--
+            ctx.fillRect(this.x+1,this.y+2,3,3)
+          }else{
+            ctx.fillRect(this.x+5,this.y+2,3,3)
+            ctx.fillRect(this.x+1,this.y+2,3,3)
+          }
+        }
+      }
+      
+      
+      var zombs = [new zomb()]
+      var time = 0
+      var health = 100
+      var dir = "left"
+      
+      setInterval(function(){
+        time++
+        
+        ctx.clearRect(0,0,500,500);
+
+
+        ctx.fillStyle = "black"
+        ctx.fillRect(x,plr,10,10);
+
+        ctx.fillStyle = "white"
+        if(dir == "left"){
+          ctx.fillRect(x+1,plr+2,3,3)
+        }else{
+          ctx.fillRect(x+5,plr+2,3,3)
+        }
+        ctx.fillStyle = "rgb("+(256-((health/2)*(256/50)))+","+((health/2*(256/50)))+",0)"
+        ctx.fillRect(x+(100-health)/4-20,plr-20,health/2,10)
+        v+=0.3
+        plr+=v
+        h*=0.9
+        x+=h
+        if(plr >490){
+          plr = 490
+        }
+        if(keys.a){
+          h += -1
+        }
+        if(keys.d){
+          h += 1
+        }
+        for(var i = 0; i<zombs.length;i++){
+          zombs[i].update()
+          if (x < zombs[i].x + 10 &&
+              x + 10 > zombs[i].x &&
+              plr < zombs[i].y + 10 &&
+              plr + 10 > zombs[i].y) {
+            // collision detected!
+            health--
+            if(health == 0){
+              location.reload()
+            }
+          }
+        }
+        if(time%60==0){
+          zombs[zombs.length] = new zomb()
+        }
+      },1000/60);
+
+
+      document.onkeydown = function(e){
+        let res = String.fromCharCode(e.keyCode);
+        if((res=="W")&& plr == 490){
+          v = -7;
+        }
+        if(res == "A"){
+          keys.a = true
+          dir = "left"
+        }
+        if(res == "D"){
+          keys.d = true
+          dir =  "right"
+        }
+      }
+      
+      document.onkeyup = function(e){
+        let res = String.fromCharCode(e.keyCode)
+        if(res == "A"){
+          keys.a = false
+        }
+        if(res == "D"){
+          keys.d = false
+        }
+      }
+    </script>
+  </body>
+</html>
