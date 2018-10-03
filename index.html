@@ -136,7 +136,13 @@
         //Somethi
 
         ctx.fillStyle = "black"
-        
+        ctx.beginPath();
+ctx.moveTo(0,0);
+ctx.lineTo(0,500);
+        ctx.lineTo(500,500);
+        ctx.lineTo(500,0)
+        ctx.lineTo(0,0)
+ctx.stroke();
       ctx.textAlign = "center"
         ctx.fillText(15-sec,250,60)
         ctx.fillRect(x,plr,10,10);
