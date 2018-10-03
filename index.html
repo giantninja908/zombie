@@ -50,7 +50,7 @@
       console.clear()
       var canvas = document.getElementById("canvas");
       var ctx = canvas.getContext("2d");
-      var width,height
+
       var plr = 490;
       var x = 250;
       var v = 0;
@@ -77,17 +77,6 @@
                        
         
         this.update = function(){
-          let sizingVar = 1
-        height = window.innerHeight
-        width = window.innerWidth
-        ctx.clearRect(0, 0, width, height)
-        if (width < height) {
-          sizingVar = width / 500
-        } else {
-          sizingVar = height / 500
-        }
-        canvas.width = sizingVar * 500
-        canvas.height = sizingVar * 500
           if(((Math.floor(Math.random()*100)==Math.floor(Math.random()*100)))&&this.y==490){
             this.j = -3
           }
@@ -98,21 +87,21 @@
           }
           
           ctx.fillStyle = "rgb(247, 49, 224)"
-          ctx.fillRect((this.x+2)*sizingVar,(this.y-2)*sizingVar,6*sizingVar,2*sizingVar)
+          ctx.fillRect(this.x+2,this.y-2,6,2)
           ctx.fillStyle = "green"
-          ctx.fillRect(this.x*sizingVar,this.y*sizingVar,10*sizingVar,10*sizingVar)
+          ctx.fillRect(this.x,this.y,10,10)
           ctx.fillStyle = "black"
 
           if(this.x<x){
             this.x++
-            ctx.fillRect((this.x+5),(this.y+2),3*sizingVar,3*sizingVar)
+            ctx.fillRect(this.x+5,this.y+2,3,3)
           }else
             if(this.x>x){
               this.x--
-              ctx.fillRect((this.x+1)*sizingVar,(this.y+2)*sizingVar,3*sizingVar,3*sizingVar)
+              ctx.fillRect(this.x+1,this.y+2,3,3)
             }else{
-              ctx.fillRect((this.x+5)*sizingVar,(this.y+2)*sizingVar,3*sizingVar,3*sizingVar)
-              ctx.fillRect((this.x+1)*sizingVar,(this.y+2)*sizingVar,3*sizingVar,3*sizingVar)
+              ctx.fillRect(this.x+5,this.y+2,3,3)
+              ctx.fillRect(this.x+1,this.y+2,3,3)
             }
         }
       }
@@ -141,49 +130,39 @@
       }
       ctx.font = "40px Ariel"
       setInterval(function(){
-        let sizingVar = 1
-        height = window.innerHeight
-        width = window.innerWidth
-        ctx.clearRect(0, 0, width, height)
-        if (width < height) {
-          sizingVar = width / 500
-        } else {
-          sizingVar = height / 500
-        }
-        canvas.width = sizingVar * 500
-        canvas.height = sizingVar * 500
         time++
 
+        ctx.clearRect(0,0,500,500);
         //Somethi
 
         ctx.fillStyle = "black"
         
       ctx.textAlign = "center"
-        ctx.fillText(15-sec,250*sizingVar,60*sizingVar)
-        ctx.fillRect(x*sizingVar,plr*sizingVar,10*sizingVar,10*sizingVar);
+        ctx.fillText(15-sec,250,60)
+        ctx.fillRect(x,plr,10,10);
         ctx.textAlign = "left"
-        ctx.fillText("Lvl "+lvl, 0*sizingVar,40*sizingVar)
+        ctx.fillText("Lvl "+lvl, 0,40)
         
         ctx.fillStyle = "white"
         if(dir == "left"){
-          ctx.fillRect((x+1)*sizingVar,(plr+2)*sizingVar,3*sizingVar,3*sizingVar)
+          ctx.fillRect(x+1,plr+2,3,3)
         }else{
-          ctx.fillRect((x+5)*sizingVar,(plr+2)*sizingVar,3*sizingVar,3*sizingVar)
+          ctx.fillRect(x+5,plr+2,3,3)
         }
         ctx.fillStyle = "rgb("+(256-((health/2)*(256/50)))+","+((health/2*(256/50)))+",0)"
-        ctx.fillRect((x+(100-health)/4-20)*sizingVar,(plr-20)*sizingVar,(health/2)*sizingVar,10*sizingVar)
+        ctx.fillRect(x+(100-health)/4-20,plr-20,health/2,10)
         v+=0.3
         plr+=v
         h*=0.9
         x+=h
-        if(plr >490*sizingVar){
-          plr = 490*sizingVar
+        if(plr >490){
+          plr = 490
         }
         if(keys.a){
-          h += -1*sizingVar
+          h += -1
         }
         if(keys.d){
-          h += 1*sizingVar
+          h += 1
         }
         for(var i = 0; i<zombs.length;i++){
           zombs[i].update()
@@ -212,8 +191,8 @@
         if(x<0){
           x=0
         }
-        if(x>490*sizingVar*sizingVar){
-          x=490*sizingVar
+        if(x>490){
+          x=490
         }
       },1000/60);
 
