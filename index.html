@@ -128,7 +128,6 @@
         dir = "left"
         sec = 0
       }
-      ctx.textAlign = "center"
       ctx.font = "40px Ariel"
       setInterval(function(){
         time++
@@ -137,6 +136,8 @@
         //Somethi
 
         ctx.fillStyle = "black"
+        
+      ctx.textAlign = "center"
         ctx.fillText(15-sec,250,60)
         ctx.fillRect(x,plr,10,10);
         ctx.textAlign = "left"
