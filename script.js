@@ -1,3 +1,5 @@
+//updated I gueshfdjhsdjf jeh jsdhf khweiuf hs
+
 function fullScreen() {
   // check if user allows full screen of elements. This can be enabled or disabled in browser config. By default its enabled.
   //its also used to check if browser supports full screen api.
