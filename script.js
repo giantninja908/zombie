@@ -45,6 +45,8 @@ try {
   var x = 250;
   var v = 0;
   var h = 0;
+  var mouseX = 0;
+  var mouseY = 0;
   var keys = {
     a: false,
     d: false
@@ -57,7 +59,8 @@ try {
   function pwrUp(type) {
     this.type = type;
     this.y = -10;
-    this.v = 0;;
+    
+    this.v = 0;
     this.x = Math.floor(Math.random() * 500)
     this.falling = true;
     this.update = function() {
@@ -286,6 +289,8 @@ try {
       ctx.fillRect(100, 400, 300, 100)
       ctx.fillStyle = "black"
       ctx.fillText("Endless", 250, 460)
+      
+      
     } else {
       if (!pause) {
         time++;
@@ -365,13 +370,21 @@ try {
             // collision detected!
             health--
             if (health == 0) {
-              reset()
+              reset();
             }
           }
         }
-        if (time % (map(lvl, 1, 2, 90, 88)) == 0) {
+        if(lvl<50){
+        if (time % (map(lvl, 1, 2, 90, 88)+1) == 0) {
 
           zombs[zombs.length] = new zomb()
+        }
+        }else{
+          
+          for(var i = 0; i<map(lvl,50,53,1,3);i++){
+            zombs[zombs.length] = new zomb();
+          }
+          
         }
         if (time % 60 == 0) {
           sec++
@@ -412,7 +425,7 @@ try {
     }
     if (res == "A" || res == "%") {
       keys.a = true
-      dir = "left"
+      dir = "left";
     }
     if (res == "D" || res == "'") {
       keys.d = true
@@ -442,12 +455,16 @@ try {
       keys.a = false
     }
     if (res == "D" || res == "'") {
-      keys.d = false
+      keys.d = false;
     }
   }
   document.onmousedown = function() {
     if (menu) {
-
+      if(400>mouseX>100){
+        if(200>mouseY>100){
+          alert("clickety click clack");
+        }
+      }
     } else {
       if (zombGun) {
         bullets[bullets.length] = new bullet(dir)
@@ -461,7 +478,34 @@ try {
   window.onerror = function(e) {
 
   }
+  document.onmousemove = handleMouseMove;
+  function handleMouseMove(event) {
+    var dot, eventDoc, doc, body, pageX, pageY;
+
+    event = event || window.event; // IE-ism
+
+    // If pageX/Y aren't available and clientX/Y are,
+    // calculate pageX/Y - logic taken from jQuery.
+    // (This is to support old IE)
+    if (event.pageX == null && event.clientX != null) {
+      eventDoc = (event.target && event.target.ownerDocument) || document;
+      doc = eventDoc.documentElement;
+      body = eventDoc.body;
+
+      event.pageX = event.clientX +
+        (doc && doc.scrollLeft || body && body.scrollLeft || 0) -
+        (doc && doc.clientLeft || body && body.clientLeft || 0);
+      event.pageY = event.clientY +
+        (doc && doc.scrollTop  || body && body.scrollTop  || 0) -
+        (doc && doc.clientTop  || body && body.clientTop  || 0 );
+    }
+
+    // Use event.pageX / event.pageY here
+    mouseX = event.pageX-((window.innerWidth-500)/2)
+    mouseY = event.pageY-((window.innerHeight-500)/2)
+  }
 } catch (e) {
   document.write(e);
 }
+//HAHAH EASTER EGG
 //alert(console)
