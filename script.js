@@ -296,6 +296,13 @@ try {
         time++;
 
         ctx.clearRect(0, 0, 500, 500);
+	      ctx.beginPath();
+	      ctx.moveTo(1,1)
+	      ctx.lineTo(499,1)
+	      ctx.lineTo(499,499)
+	      ctx.lineTo(1,499)
+	      ctx.lineTo(1,1)
+	      ctx.stroke()
         //Somethi
         if (Math.floor(Math.random() * (100 * Math.sqrt(2))) == Math.floor(Math.random() * (100 * Math.sqrt(2))) && pww == null) {
           if (Math.random() > 0.9) {
