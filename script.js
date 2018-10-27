@@ -292,6 +292,7 @@ try {
         time++;
 
         ctx.clearRect(0, 0, 500, 500);
+	      ctx.strokeStyle = "black"
 	      ctx.beginPath()
 	      ctx.moveTo(1,1)
 	      ctx.lineTo(1,499)
